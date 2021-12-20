@@ -1,0 +1,125 @@
+{
+  "name": "@newkind/template",
+  "version": "0.1.0",
+  "description": "peer to peer connect",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.mjs",
+  "author": "Zababurin Sergey",
+  "license": "GPL-3.0-only",
+  "targets": {
+    "main": false,
+    "dev": {
+      "includeNodeModules": true,
+      "optimize": false,
+      "isLibrary": false,
+      "distDir": "service",
+      "sourceMap": true,
+      "publicUrl": "/",
+      "source": "./frontend/src/index.html"
+    },
+    "service": {
+      "includeNodeModules": true,
+      "optimize": true,
+      "isLibrary": false,
+      "distDir": "service",
+      "sourceMap": false,
+      "publicUrl": "/",
+      "source": "./frontend/src/index.html"
+    },
+    "module": {
+      "includeNodeModules": true,
+      "optimize": true,
+      "isLibrary": true,
+      "sourceMap": false,
+      "source": "./frontend/src/index.mjs"
+    }
+  },
+  "palette": {
+    "zb": {
+      "scope": "/palette/src/github.com/zababurinsv/",
+      "active": "newkind-db/frontend/src",
+      "self": {
+        "auction": "newkind-auction",
+        "tera": "newkind-db/frontend/src"
+      },
+      "static": "static",
+      "port": 6112,
+      "portTunnel": 5005,
+      "wstunHost": "ws://localhost:5000"
+    }
+  },
+  "config": {
+    "highWaterMark": 300,
+    "port": {
+      "dev": 4518,
+      "service": 4519,
+      "palette": 6112
+    },
+    "list": {
+      "white": [
+        "http://localhost:4517",
+        "https://zababurinsv.github.io/newkind-service/"
+      ],
+      "black": []
+    }
+  },
+  "scripts": {
+    "dev": "redrun --parallel-calm server:dev watch:static",
+    "server:dev": "rimraf ./service/* && parcel --cache-dir ./.parcel-cache --no-hmr --port $npm_package_config_port_dev --dist-dir $npm_package_targets_dev_distDir --public-url $npm_package_targets_dev_publicUrl --target dev",
+    "server:service": "nodemon ./backend/index.mjs",
+    "server:palette": "nodemon server.mjs",
+    "build:service": "rimraf ./service/* && rimraf .parcel-cache && parcel build --target service",
+    "build:module": "rimraf ./dist/* && parcel build --target module",
+    "watch:static": "gulp",
+    "build:docs": "rimraf ./docs/* && jsdoc -c jsdoc.json",
+    "build:readme": "jsdoc2md --configure jsdoc.json --source frontend/index.mjs > md_api.md && cat ./md_info.md ./md_api.md > ./README.md",
+    "deploy:gh": "gh-pages -d service/template",
+    "download:packages": "./scripts/packages.sh",
+    "download:palette": "./scripts/palette.sh",
+    "download:node": "./scripts/node.sh",
+    "download:server": "./scripts/server.sh",
+    "pm2:monit": "pm2 monit",
+    "pm2:logs": "pm2 logs --out --lines 200",
+    "pm2:list": "pm2 list",
+    "clean": "rimraf ./service/* && rimraf ./dist/* && rimraf ./docs/* && rimraf ./md_api.md && find . -name \".parcel-cache\" -exec rm -rf '{}' +;",
+    "kill:dev": "kill $(lsof -t -i:$npm_package_config_port_dev)",
+    "kill:service": "kill $(lsof -t -i:$npm_package_config_port_service)",
+    "kill:palette": "kill $(lsof -t -i:$npm_package_config_port_palette)"
+  },
+  "dependencies": {
+    "comlink": "^4.3.1",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-enqueue": "^1.0.0",
+    "libsodium-wrappers": "^0.7.9",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.0",
+    "web-streams-polyfill": "^3.2.0",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "@newkind/tests": "^0.2.6",
+    "@parcel/packager-raw-url": "^2.0.1",
+    "@parcel/transformer-sass": "^2.0.1",
+    "@parcel/transformer-webmanifest": "^2.0.1",
+    "parcel-plugin-typed-css-modules": "^1.1.0",
+    "@types/libsodium-wrappers": "^0.7.9",
+    "docdash": "^1.2.0",
+    "gh-pages": "^3.2.3",
+    "gulp": "^4.0.2",
+    "jsdoc": "^3.6.7",
+    "jsdoc-to-markdown": "^7.1.0",
+    "parcel": "2.0.1",
+    "pm2": "^5.1.2",
+    "postcss": "^8.4.4",
+    "redrun": "^9.0.1",
+    "rimraf": "^3.0.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
+}
