@@ -1,5 +1,5 @@
 {
-  "name": "@newkind/template",
+  "name": "@newkind/debug",
   "version": "0.1.0",
   "description": "peer to peer connect",
   "module": "./dist/index.mjs",
@@ -25,6 +25,13 @@
       "sourceMap": false,
       "publicUrl": "/",
       "source": "./frontend/src/index.html"
+    },
+    "global": {
+      "includeNodeModules": true,
+      "optimize": false,
+      "isLibrary": false,
+      "sourceMap": false,
+      "source": "./frontend/src/index.mjs"
     },
     "module": {
       "includeNodeModules": true,
@@ -70,6 +77,7 @@
     "server:palette": "nodemon server.mjs",
     "build:service": "rimraf ./service/* && rimraf .parcel-cache && parcel build --target service",
     "build:module": "rimraf ./dist/* && parcel build --target module",
+    "build:browser": "rimraf ./dist/* && parcel build --target global",
     "watch:static": "gulp",
     "build:docs": "rimraf ./docs/* && jsdoc -c jsdoc.json",
     "build:readme": "jsdoc2md --configure jsdoc.json --source frontend/index.mjs > md_api.md && cat ./md_info.md ./md_api.md > ./README.md",
@@ -95,15 +103,16 @@
     "libsodium-wrappers": "^0.7.9",
     "nodemon": "^2.0.15",
     "socket.io": "^4.4.0",
+    "template-colors-web": "^1.0.0",
     "web-streams-polyfill": "^3.2.0",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@newkind/tests": "^0.2.6",
     "@parcel/packager-raw-url": "^2.0.1",
     "@parcel/transformer-sass": "^2.0.1",
     "@parcel/transformer-webmanifest": "^2.0.1",
-    "parcel-plugin-typed-css-modules": "^1.1.0",
     "@types/libsodium-wrappers": "^0.7.9",
     "docdash": "^1.2.0",
     "gh-pages": "^3.2.3",
@@ -111,6 +120,7 @@
     "jsdoc": "^3.6.7",
     "jsdoc-to-markdown": "^7.1.0",
     "parcel": "2.0.1",
+    "parcel-plugin-typed-css-modules": "^1.1.0",
     "pm2": "^5.1.2",
     "postcss": "^8.4.4",
     "redrun": "^9.0.1",
