@@ -29,7 +29,7 @@
     "global": {
       "includeNodeModules": true,
       "optimize": false,
-      "isLibrary": false,
+      "isLibrary": true,
       "sourceMap": false,
       "source": "./frontend/src/index.mjs"
     },
@@ -58,7 +58,7 @@
   "config": {
     "highWaterMark": 300,
     "port": {
-      "dev": 4518,
+      "dev": 4519,
       "service": 4519,
       "palette": 6112
     },

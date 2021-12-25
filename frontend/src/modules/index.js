@@ -1,6 +1,5 @@
-import c from 'template-colors-web'
-import isEmpty from './modules/isEmpty/isEmpty.mjs'
-
+const isEmpty = require('./isEmpty/isEmpty.js')
+const c = require('./template-colors-web/index.js')
 let stack = {}
 let props = {
   self: {
@@ -11,6 +10,7 @@ let props = {
   count: 0,
   maxCount: 0
 }
+
 
 let color = {
   default: {
@@ -71,18 +71,6 @@ let color = {
   },
 }
 
-c.define('defaultPathToFile', [color.default.pathToFile.color, color.default.pathToFile.background, 'bold', 'italic']);
-c.define('defaultId', [color.default.id.color, color.default.id.background, 'bold', 'italic']);
-c.define('blockchainPathToFile', [color.blockchain.pathToFile.color, color.blockchain.pathToFile.background, 'bold', 'italic']);
-c.define('blockchainId', [color.blockchain.id.color, color.blockchain.id.background, 'bold', 'italic']);
-c.define('workerPathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-c.define('workerId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-c.define('orbitDbPathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-c.define('orbitDbId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-c.define('servicePathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-c.define('serviceId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-
-
 let preset = (type, pathToFile,id) => {
   switch (type) {
     case -5:
@@ -110,30 +98,6 @@ let preset = (type, pathToFile,id) => {
   }
   return true
 }
-
-const print = (type, count, pathToFile, id, args) => {
-  switch (type) {
-    case -5:
-      console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '' :args)
-      break
-    case -4:
-      console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '' :args)
-      break
-    case -3:
-      console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '':args)
-      break
-    case -2:
-      console.log(c`${count} ${pathToFile}.workerPathToFile ${id}.workerId`, isEmpty(args) ? '' :args)
-      break
-    case -1:
-      console.log(c`${count} ${pathToFile}.defaultPathToFile ${id}.defaultId`, isEmpty(args) ? '' :args)
-      break
-    default:
-      break
-  }
-  return true
-}
-
 let assert = {
   assert: (maxCount,  pathToFile = "", id = "default", args) => {
     if(isEmpty(stack[`${pathToFile}`])) {
@@ -153,7 +117,7 @@ let assert = {
       preset(maxCount, pathToFile, id)
       if(stack[pathToFile][id].maxCount === 0){
         if(stack[pathToFile][id].self.isConsole) {
-          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
+          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(0,133,255) ${id}.rgbBG(255,255,255)`, isEmpty(args) ? '' :args)
         }
 
         if(stack[pathToFile][id].self.isAssert) {
@@ -164,14 +128,14 @@ let assert = {
 
       } else {
         if(stack[pathToFile][id].self.isConsole) {
-          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
+          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(0,133,255) ${id}.rgbBG(255,255,255)`, isEmpty(args) ? '' :args)
         }
       }
     } else {
       stack[pathToFile][id].count = stack[pathToFile][id].count + 1
       if(stack[pathToFile][id].count >= stack[pathToFile][id].maxCount) {
         if(stack[pathToFile][id].self.isConsole) {
-          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
+          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(0,133,255) ${id}.rgbBG(255,255,255)`, isEmpty(args) ? '' :args)
         }
 
         if(stack[pathToFile][id].self.isAssert) {
@@ -181,11 +145,12 @@ let assert = {
       } else {
 
         if(stack[pathToFile][id].self.isConsole) {
-          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
+          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(0,133,255) ${id}.rgbBG(255,255,255)`, isEmpty(args) ? '' :args)
         }
       }
     }
     return true
   }
 }
-export default assert
+
+module.exports = assert
