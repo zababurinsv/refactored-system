@@ -1,4 +1,4 @@
-import xml from '../../@xmldom/xmldom/lib/index.mjs'
+import xml from '../@xmldom/xmldom/lib/index.mjs'
 let DOMParser = xml.DOMParser
 
 function processStyleArray (styleArray) {

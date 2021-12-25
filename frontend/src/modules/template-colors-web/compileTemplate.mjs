@@ -89,24 +89,38 @@ compileTemplate.define = (name, stylesToDefine) => {
 	definedStyles[name] = stylesToDefine;
 	COLORS_REGEXP = compileColorsRegExp();
 	if (Object.defineProperty) {
-		Object.defineProperty(StyledString.prototype, name, {
+		StyledString.prototype[name] = {
 			get: function () {
 				this.styles = this.styles.concat(stylesToDefine);
 				return this;
 			}
-		});
-
-		Object.defineProperty(String.prototype, name, {
+		}
+		// Object.defineProperty(StyledString.prototype, name, {
+		// 	get: function () {
+		// 		this.styles = this.styles.concat(stylesToDefine);
+		// 		return this;
+		// 	}
+		// });
+		String.prototype[name] = {
 			get: function () {
 				return new StyledString([[this]])[name];
 			}
-		});
-
-		Object.defineProperty(StyledStringPlain.prototype, name, {
+		}
+		// Object.defineProperty(String.prototype, name, {
+		// 	get: function () {
+		// 		return new StyledString([[this]])[name];
+		// 	}
+		// });
+		StyledStringPlain.prototype[name] = {
 			get: function () {
 				return new StyledString([[this]])[name];
 			}
-		});
+		}
+		// Object.defineProperty(StyledStringPlain.prototype, name, {
+		// 	get: function () {
+		// 		return new StyledString([[this]])[name];
+		// 	}
+		// });
 	}
 };
 

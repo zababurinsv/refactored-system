@@ -35,6 +35,20 @@ colors.define('strikethrough', 'style("text-decoration: line-through")');
 colors.define('dim', 'style("opacity: 0.75")');
 colors.define('hidden', 'style("opacity: 0.00")');
 
+colors.define('defaultPathToFile', 'style("color:rgb(25,119,241)")');
+colors.define('defaultId', 'style("color:rgb(39,94,7)")');
+
+colors.define('workerPathToFile', 'style("color:rgb(144,69,169)")');
+colors.define('workerId', 'style("color:rgb(39,94,7)")');
+
+colors.define('blockchainPathToFile', 'style("color:rgb(255,0,30)")');
+colors.define('blockchainId', 'style("color:rgb(39,94,7)")');
+
+colors.define('orbitDbPathToFile', 'style("color:rgb(197,82,52)")');
+colors.define('orbitDbId', 'style("color:rgb(39,94,7)")');
+
+colors.define('servicePathToFile', 'style("color:rgb(208,112,29)")');
+colors.define('serviceId', 'style("color:rgb(39,94,7)")');
 //console.log(colors`${'test'}.underline.green.italic.style('font-size: 42px').bold`);
 
 module.exports = colors;

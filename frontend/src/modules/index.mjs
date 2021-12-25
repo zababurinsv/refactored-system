@@ -11,77 +11,32 @@ let props = {
   maxCount: 0
 }
 
-let color = {
-  default: {
-    pathToFile: {
-      color:"rgb(0,133,255)",
-      background: 'rgbBG(255,255,255)',
-      test: 'rgb(234,188,188)'
-    },
-    id: {
-      color:"rgb(63,146,63)",
-      background: 'rgbBG(255,255,255)',
-      test: 'rgb(236,188,231)'
+var PrependZeros = function (str, len, seperator) {
+  if (typeof str === 'number' || Number(str)) {
+    str = str.toString();
+    return (len - str.length > 0) ? new Array(len + 1 - str.length).join('0') + str : str;
+  }
+  else {
+    var spl = str.split(seperator || ' ')
+    for (var i = 0 ; i < spl.length; i++) {
+      if (Number(spl[i]) && spl[i].length < len) {
+        spl[i] = PrependZeros(spl[i], len)
+      }
     }
-  },
-  worker: {
-    pathToFile: {
-      color:"rgb(25,119,241)",
-      background: 'rgbBG(184,203,184)',
-      test: 'rgb(184,203,184)'
-    },
-    id: {
-      color:"rgb(63,146,63)",
-      background: 'rgbBG(255,255,255)',
-      test: 'rgb(255,255,255)'
-    }
-  },
-  blockchain: {
-    pathToFile: {
-      color:"rgb(144,69,169)",
-      background: 'rgbBG(232,228,245)',
-      test: 'rgb(232,228,245)'
-    },
-    id: {
-      color:"rgb(63,146,63)",
-      background: 'rgbBG(255,255,255)',
-      test: 'rgb(255,255,255)'
-    }
-  },
-  orbitDb: {
-    pathToFile: {
-      color:"rgb(144,69,169)",
-      background: 'rgbBG(107,164,250)'
-    },
-    id: {
-      color:"rgb(63,146,63)",
-      background: 'rgbBG(215,194,255)'
-    }
-  },
-  service: {
-    pathToFile: {
-      color:"rgb(144,69,169)",
-      background: 'rgbBG(107,164,250)'
-    },
-    id: {
-      color:"rgb(63,82,146)",
-      background: 'rgbBG(215,194,255)'
-    }
-  },
-}
+    return spl.join(seperator || ' ');
+  }
+};
 
-// c.define('control-defaultPathToFile', [color.default.pathToFile.color, color.default.pathToFile.background, 'bold', 'italic']);
-// c.define('control-defaultId', [color.default.id.color, color.default.id.background, 'bold', 'italic']);
-// c.define('control-blockchainPathToFile', [color.blockchain.pathToFile.color, color.blockchain.pathToFile.background, 'bold', 'italic']);
-// c.define('control-blockchainId', [color.blockchain.id.color, color.blockchain.id.background, 'bold', 'italic']);
-// c.define('control-workerPathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-// c.define('control-workerId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-// c.define('control-orbitDbPathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-// c.define('control-orbitDbId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-// c.define('control-servicePathToFile', [color.worker.pathToFile.color, color.worker.pathToFile.background, 'bold', 'italic']);
-// c.define('control-serviceId', [color.worker.id.color, color.worker.id.background, 'bold', 'italic']);
-
-
+// let PrependZeros = function (str, len, seperator) {
+//   if(typeof str === 'number' || Number(str)){
+//     str = str.toString();
+//     return (len - str.length > 0) ? new Array(len + 1 - str.length).join('0') + str: str;
+//   }
+//   else{
+//     for(var i = 0,spl = str.split(seperator || ' '); i < spl.length; spl[i] = (Number(spl[i])&& spl[i].length < len)?PrependZeros(spl[i],len):spl[i],str = (i === spl.length -1)?spl.join(seperator || ' '):str,i++);
+//     return str;
+//   }
+// };
 let preset = (type, pathToFile,id) => {
   switch (type) {
     case -5:
@@ -110,28 +65,28 @@ let preset = (type, pathToFile,id) => {
   return true
 }
 
-// const print = (type, count, pathToFile, id, args) => {
-//   switch (type) {
-//     case -5:
-//       console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '' :args)
-//       break
-//     case -4:
-//       console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '' :args)
-//       break
-//     case -3:
-//       console.log(c`${count} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '':args)
-//       break
-//     case -2:
-//       console.log(c`${count} ${pathToFile}.workerPathToFile ${id}.workerId`, isEmpty(args) ? '' :args)
-//       break
-//     case -1:
-//       console.log(c`${count} ${pathToFile}.defaultPathToFile ${id}.defaultId`, isEmpty(args) ? '' :args)
-//       break
-//     default:
-//       break
-//   }
-//   return true
-// }
+const print = (type, count, pathToFile, id, args) => {
+  switch (type) {
+    case -5:
+      console.log(c`${PrependZeros(count, 2)} ${pathToFile}.servicePathToFile ${id}.serviceId`, isEmpty(args) ? '' :args)
+      break
+    case -4:
+      console.log(c`${PrependZeros(count, 2)} ${pathToFile}.orbitDbPathToFile ${id}.orbitDbId`, isEmpty(args) ? '' :args)
+      break
+    case -3:
+      console.log(c`${PrependZeros(count, 2)} ${pathToFile}.blockchainPathToFile ${id}.blockchainId`, isEmpty(args) ? '':args)
+      break
+    case -2:
+      console.log(c`${PrependZeros(count, 2)} ${pathToFile}.workerPathToFile ${id}.workerId`, isEmpty(args) ? '' :args)
+      break
+    case -1:
+      console.log(c`${PrependZeros(count, 2)} ${pathToFile}.defaultPathToFile ${id}.defaultId`, isEmpty(args) ? '' :args)
+      break
+    default:
+      break
+  }
+  return true
+}
 
 let assert = {
   assert: (maxCount,  pathToFile = "", id = "default", args) => {
@@ -152,7 +107,7 @@ let assert = {
       preset(maxCount, pathToFile, id)
       if(stack[pathToFile][id].maxCount === 0){
         if(stack[pathToFile][id].self.isConsole) {
-          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(144,69,169) ${id}.rgb(63,82,146)`, isEmpty(args) ? '' :args)
+          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
         }
 
         if(stack[pathToFile][id].self.isAssert) {
@@ -163,14 +118,14 @@ let assert = {
 
       } else {
         if(stack[pathToFile][id].self.isConsole) {
-          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(144,69,169) ${id}.rgb(63,82,146)`, isEmpty(args) ? '' :args)
+          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
         }
       }
     } else {
       stack[pathToFile][id].count = stack[pathToFile][id].count + 1
       if(stack[pathToFile][id].count >= stack[pathToFile][id].maxCount) {
         if(stack[pathToFile][id].self.isConsole) {
-          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(144,69,169) ${id}.rgb(63,82,146)`, isEmpty(args) ? '' :args)
+          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
         }
 
         if(stack[pathToFile][id].self.isAssert) {
@@ -180,7 +135,7 @@ let assert = {
       } else {
 
         if(stack[pathToFile][id].self.isConsole) {
-          console.log(c`${stack[pathToFile][id].count} ${pathToFile}.rgb(144,69,169) ${id}.rgb(63,82,146)`, isEmpty(args) ? '' :args)
+          print(maxCount, stack[pathToFile][id].count, pathToFile, id, args)
         }
       }
     }

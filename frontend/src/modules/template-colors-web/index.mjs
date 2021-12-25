@@ -34,7 +34,79 @@ colors.define('italic', 'style("font-style: italic")');
 colors.define('strikethrough', 'style("text-decoration: line-through")');
 colors.define('dim', 'style("opacity: 0.75")');
 colors.define('hidden', 'style("opacity: 0.00")');
+colors.define('html', 'style("opacity: 0.00")');
 
-//console.log(colors`${'test'}.underline.green.italic.style('font-size: 42px').bold`);
+colors.define('defaultPathToFile', 'style("color:rgb(25,119,241)")');
+colors.define('defaultId', 'style("color:rgb(39,94,7)")');
+
+colors.define('workerPathToFile', 'style("color:rgb(144,69,169)")');
+colors.define('workerId', 'style("color:rgb(39,94,7)")');
+
+colors.define('blockchainPathToFile', 'style("color:rgb(255,0,30)")');
+colors.define('blockchainId', 'style("color:rgb(39,94,7)")');
+
+colors.define('orbitDbPathToFile', 'style("color:rgb(197,82,52)")');
+colors.define('orbitDbId', 'style("color:rgb(39,94,7)")');
+
+colors.define('servicePathToFile', 'style("color:rgb(208,112,29)")');
+colors.define('serviceId', 'style("color:rgb(39,94,7)")');
 
 export default colors;
+
+let color = {
+	default: {
+		pathToFile: {
+			color:"rgb(197,82,52)",
+			test: 'rgb(39,94,7)'
+		},
+		id: {
+			color:"rgb(208,112,29)",
+			background: 'rgbBG(255,255,255)',
+			test: 'rgb(236,188,231)'
+		}
+	},
+	worker: {
+		pathToFile: {
+			color:"rgb(25,119,241)",
+			background: 'rgbBG(184,203,184)',
+			test: 'rgb(184,203,184)'
+		},
+		id: {
+			color:"rgb(63,146,63)",
+			background: 'rgbBG(255,255,255)',
+			test: 'rgb(255,255,255)'
+		}
+	},
+	blockchain: {
+		pathToFile: {
+			color:"rgb(144,69,169)",
+			background: 'rgbBG(232,228,245)',
+			test: 'rgb(232,228,245)'
+		},
+		id: {
+			color:"rgb(63,146,63)",
+			background: 'rgbBG(255,255,255)',
+			test: 'rgb(255,255,255)'
+		}
+	},
+	orbitDb: {
+		pathToFile: {
+			color:"rgb(144,69,169)",
+			background: 'rgbBG(107,164,250)'
+		},
+		id: {
+			color:"rgb(61,141,4)",
+			background: 'rgbBG(215,194,255)'
+		}
+	},
+	service: {
+		pathToFile: {
+			color:"rgb(144,69,169)",
+			background: 'rgbBG(107,164,250)'
+		},
+		id: {
+			color:"rgb(63,82,146)",
+			background: 'rgbBG(215,194,255)'
+		}
+	},
+}
